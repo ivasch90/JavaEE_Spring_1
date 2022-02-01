@@ -1,4 +1,4 @@
-package ru.gb;
+package ru.gb.spring1;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
