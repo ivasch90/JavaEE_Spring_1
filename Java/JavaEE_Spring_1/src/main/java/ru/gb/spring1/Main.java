@@ -3,27 +3,50 @@ package ru.gb.spring1;
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.Scanner;
+
 public class Main {
+
 
     public static void main(String[] args) {
         AnnotationConfigApplicationContext context = new AnnotationConfigApplicationContext(ProductConfig.class);
-        Cart cart = context.getBean("cart", Cart.class);
-        System.out.println(cart);
         ProductRepository productRepository = context.getBean("productRepository", ProductRepository.class);
-        System.out.println(productRepository);
-        Product product = productRepository.findById(0);
-        System.out.println(product.toString());
-        productRepository.findByIdAll();
-        System.out.println("=======================");
-        Cart cart1 = context.getBean("cart", Cart.class);
-        cart1.addToCart(3, productRepository);
-        cart1.addToCart(2, productRepository);
-        System.out.println(cart1);
-        System.out.println(cart1.getProduct(0));
-        System.out.println(cart1.getProduct(1));
+        Cart cart = context.getBean("cart", Cart.class);
+        Scanner scanner = new Scanner(System.in);
+        boolean isTrue = true;
+        while (isTrue) {
+            System.out.println("Введите команду: ");
+            System.out.println("1 - состояние корзины");
+            System.out.println("2 - добавить товар в корзину");
+            System.out.println("3 - удалить товар из корзины");
+            System.out.println();
 
+            int i = scanner.nextInt();
+
+            if (i == 1) {
+                cart.showCart();
+                System.out.println();
+            } else if (i == 2) {
+                System.out.println("Введите id товара: ");
+                Scanner scanner1 = new Scanner(System.in);
+                int idRepo = scanner1.nextInt();
+                ProductRepository productRepository1 = context.getBean("productRepository", ProductRepository.class);
+                cart.addToCart(idRepo, productRepository1);
+                System.out.println("Товар " + productRepository1.findById(idRepo).getName() + " добавлен в корзину!");
+            } else if (i == 3) {
+                System.out.println("Введите id товара: ");
+                Scanner scanner1 = new Scanner(System.in);
+                int idRepo = scanner1.nextInt();
+                cart.removeFromCart(idRepo);
+                System.out.println("Товар удален");
+            } else {
+                System.out.println("Ошибка! Товар не найден или неправильная команда");
+                isTrue = false;
+            }
+        }
 
         context.close();
-
+        scanner.close();
     }
+
 }

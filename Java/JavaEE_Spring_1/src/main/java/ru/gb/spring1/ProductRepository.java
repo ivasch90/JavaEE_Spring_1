@@ -10,17 +10,18 @@ import java.util.List;
 @Getter
 @Component
 public class ProductRepository {
-    private List<Product> productList;
+    private List<Product> productList = new ArrayList<>();
     private Product product;
+
 
     @PostConstruct
     public void init () {
         productList = new ArrayList<>();
-        productList.add(new Product(0, "Apple", 100f));
-        productList.add(new Product(1, "Meat", 500f));
-        productList.add(new Product(2, "Lemon", 200f));
-        productList.add(new Product(3, "Butter", 150f));
-        productList.add(new Product(4, "Bread", 20f));
+        productList.add(new Product(1, "Apple", 100f));
+        productList.add(new Product(2, "Meat", 500f));
+        productList.add(new Product(3, "Lemon", 200f));
+        productList.add(new Product(4, "Butter", 150f));
+        productList.add(new Product(5, "Bread", 20f));
     }
 
     public Product findById(int id) {
@@ -34,7 +35,7 @@ public class ProductRepository {
     public void findByIdAll() {
         for (int i = 0; i < productList.size(); i++) {
             Product product1 = productList.get(i);
-            System.out.println(product1);
+            System.out.println(product1.getName());
         }
     }
 }

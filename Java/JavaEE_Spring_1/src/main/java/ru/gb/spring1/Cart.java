@@ -1,6 +1,5 @@
 package ru.gb.spring1;
 
-import lombok.Getter;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -8,35 +7,33 @@ import org.springframework.stereotype.Component;
 @Component
 @Scope("prototype")
 public class Cart {
-    private int index;
-    private ProductRepository productRepository;
-    private Product product;
+    private final ProductRepository productRepository;
 
 
-    //public Cart() {
-    //    index = 0;
-    //}
-
-    public Cart(ProductRepository productRepository) {
-        index = 0;
-        this.productRepository = productRepository;
+    public Cart() {
+        this.productRepository = new ProductRepository();
     }
 
-    public void addToCart(int id, ProductRepository productRepository) {
-        product = productRepository.getProductList().get(id);
-        this.productRepository.getProductList().add(index, product);
-        index++;
+    public void showCart() {
+        if (productRepository.getProductList().size() != 0) {
+            for (int j = 0; j < productRepository.getProductList().size(); j++) {
+                System.out.println(productRepository.getProductList().get(j).toString());
+            }
+        }
+        else {
+            System.out.println("Корзина пуста");
+        }
     }
-
-    public void removeFromCart (int id) {
-        product = productRepository.findById(id);
-        if (product != null) {
-
+    public void removeFromCart(int id) {
+        for (int i = 0; i < productRepository.getProductList().size(); i++) {
+            if (id == productRepository.getProductList().get(i).getId()) {
+                productRepository.getProductList().remove(productRepository.getProductList().get(i));
+            }
         }
     }
 
-    public Product getProduct (int id) {
-        Product product1 = productRepository.findById(id);
-        return product1;
+    public void addToCart(int id, ProductRepository productRepository1) {
+        Product p1 = productRepository1.findById(id);
+        productRepository.getProductList().add(p1);
     }
 }

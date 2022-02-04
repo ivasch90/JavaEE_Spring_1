@@ -11,7 +11,7 @@ public class ProductConfig {
 
     @Autowired
     public Cart cart (ProductRepository productRepository) {
-        return new Cart(productRepository);
+        return new Cart();
     }
 
 }
