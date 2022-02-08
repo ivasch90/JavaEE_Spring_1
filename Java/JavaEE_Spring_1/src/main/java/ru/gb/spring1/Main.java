@@ -2,6 +2,8 @@ package ru.gb.spring1;
 
 
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.gb.spring1.config.ProductConfig;
+import ru.gb.spring1.repository.ProductRepository;
 
 import java.util.Scanner;
 
@@ -32,7 +34,7 @@ public class Main {
                 int idRepo = scanner1.nextInt();
                 ProductRepository productRepository1 = context.getBean("productRepository", ProductRepository.class);
                 cart.addToCart(idRepo, productRepository1);
-                System.out.println("Товар " + productRepository1.findById(idRepo).getName() + " добавлен в корзину!");
+                //System.out.println("Товар " + productRepository1.findById(idRepo).getName() + " добавлен в корзину!");
             } else if (i == 3) {
                 System.out.println("Введите id товара: ");
                 Scanner scanner1 = new Scanner(System.in);

@@ -1,15 +1,15 @@
-package ru.gb.spring1;
+package ru.gb.spring1.entity;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 @Getter
 @Setter
+@Builder
 @AllArgsConstructor
+@NoArgsConstructor
 public class Product {
 
-    private int id;
+    private Integer id;
     private String name;
     private float cost;
 
